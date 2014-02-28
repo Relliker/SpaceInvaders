@@ -9,21 +9,19 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class SpaceInvaders extends BasicGame implements Constants, Waves
+public class SpaceInvaders extends BasicGame implements Constants
 {
 
 	public static void main(final String[] args)
 	{
-		try
-		{
+		try {
 			System.out.println("OPEN REQUESTED\n");
 			final AppGameContainer game = new AppGameContainer(new SpaceInvaders(gameTitle));
 			game.setDisplayMode(windowX, windowY, fullscreen);
 			setSettings(game);
 			System.out.println("\nSTART\n");
 			game.start();
-		} catch (final SlickException ex)
-		{
+		} catch (final SlickException ex) {
 			Logger.getLogger(SpaceInvaders.class.getName()).log(Level.SEVERE, "Exception @ creating container", ex);
 		}
 	}
@@ -70,7 +68,7 @@ public class SpaceInvaders extends BasicGame implements Constants, Waves
 		graphics.setBackground(org.newdawn.slick.Color.orange);
 		graphics.clear();
 
-		InvaderManager.step();
+		ShipManager.step();
 		RenderManager.loadResources(graphics);
 	}
 
@@ -86,7 +84,7 @@ public class SpaceInvaders extends BasicGame implements Constants, Waves
 	public void update(final GameContainer container, final int delta) throws SlickException
 	{
 		System.out.println("Update: " + updateCycles);
-		LogicManager.update();
+		LogicManager.update(container);
 		updateCycles++;
 	}
 }

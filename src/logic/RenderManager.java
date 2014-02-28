@@ -4,6 +4,7 @@ import objects.Invader;
 import objects.PlayerShip;
 
 import org.lwjgl.util.Point;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -19,18 +20,13 @@ public class RenderManager implements Constants, CollisionMasks
 	private static Image scoreBackground;
 	private static Image redInvader;
 	private static Image greenInvader;
-	private static PlayerShip player = new PlayerShip(100, 100, 100, 5, new Point(windowX / 2, windowY - 100));
+	private static PlayerShip player = new PlayerShip(100, 100, 100, 5, new Point(windowX / 2, windowY - 100), 5);
 
 	private static void drawAIShips(final Graphics g)
 	{
-		if (InvaderManager.getInvaders() == null)
-		{
-			return;
-		}
-		for (final Invader current : InvaderManager.getInvaders())
-		{
+		if (ShipManager.getInvaders() == null) return;
+		for (final Invader current : ShipManager.getInvaders())
 			g.texture(new Rectangle(current.getX(), current.getY(), 64, 64), redInvader, true);
-		}
 	}
 
 	public static void drawBackgrounds(final Graphics g)
@@ -48,12 +44,8 @@ public class RenderManager implements Constants, CollisionMasks
 	{
 		// NOTE: Each char is 8 pixels wide and 8 pixels tall
 		if (debugMode)
-		{
-			g.drawString("Frame: " + frame + "   Wave: " + InvaderManager.getWave() + "  Lives: " + InvaderManager.getLives(), 100, 10);
-		} else
-		{
-			g.drawString("Wave: " + InvaderManager.getWave() + "  Lives: " + InvaderManager.getLives(), 100, 10);
-		}
+			g.drawString("Frame: " + frame + "   Wave: " + ShipManager.getWave() + "  Lives: " + ShipManager.getLives(), 100, 10);
+		else g.drawString("Wave: " + ShipManager.getWave() + "  Lives: " + ShipManager.getLives(), 100, 10);
 	}
 
 	public static void loadResources(final Graphics g) throws SlickException
@@ -71,14 +63,19 @@ public class RenderManager implements Constants, CollisionMasks
 		g.setClip(0, 0, windowX, windowY);
 		drawBackgrounds(g);
 		drawText(g);
-		drawPlayerShips(g);
 		drawAIShips(g);
+		drawPlayerShips(g);
+		EffectsManager.draw(g);
 		frame++;
 	}
 
-	public static void update()
+	public static void paused(final Graphics g)
 	{
-		// TODO Auto-generated method stub
+		g.drawString("PAUSED", windowX / 2, windowY / 2);
+	}
 
+	public static void update(final GameContainer gc)
+	{
+		player.step(gc);
 	}
 }
