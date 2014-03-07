@@ -22,11 +22,11 @@ public interface Constants
 	public final boolean antiAliasing = true;
 
 	public final String resourcesPath = "Resources\\";
-	public final String backgroundPath = "backgrounds\\";
-	public final String shipsPath = "ships\\";
-	public final String miscPath = "misc\\";
-	public final String effectsPath = "effects\\";
-	public final String celestialsPath = "celestial_objects\\";
+	public final String backgroundPath = resourcesPath + "backgrounds\\";
+	public final String shipsPath = resourcesPath + "ships\\";
+	public final String miscPath = resourcesPath + "misc\\";
+	public final String effectsPath = resourcesPath + "effects\\";
+	public final String celestialsPath = resourcesPath + "celestial_objects\\";
 
 	public final boolean grabMouse = false;
 	public final boolean music = true;
@@ -35,5 +35,6 @@ public interface Constants
 	public final String gameTitle = "Space Invaders - v0.1";
 
 	public final int startLives = 3;
+	public final double scale = windowX / 1000;
 
 }

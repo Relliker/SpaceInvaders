@@ -1,16 +1,34 @@
 package objects;
-public class Invader
+
+import logic.Constants;
+import logic.EffectsManager;
+
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
+
+import util.Point2;
+
+public class Invader implements Constants
 {
 
-	protected int xLocation;
-	protected int yLocation;
+	protected int size;
+	protected Point2 location;
 	protected int health;
+	protected Image texture;
 
-	public Invader(final int _xLocation, final int _yLocation, final int _health)
+	public Invader(Point2 location, int size, int health, Image texture)
 	{
-		xLocation = _xLocation;
-		yLocation = _yLocation;
-		health = _health;
+		this.size = size;
+		this.location = location;
+		this.health = health;
+		this.texture = texture;
+	}
+
+	public void draw(final Graphics g)
+	{
+		g.texture(new Rectangle(location.getX(), location.getY(), size, size), texture, true);
+
 	}
 
 	public int getHealth()
@@ -18,35 +36,50 @@ public class Invader
 		return health;
 	}
 
+	public int getSize()
+	{
+		return size;
+	}
+
 	public int getX()
 	{
-		return xLocation;
+		return (int) location.getX();
 	}
 
 	public int getY()
 	{
-		return yLocation;
+		return (int) location.getY();
 	}
 
-	public void move(final int _xLocation, final int _yLocation)
+	public void move(int x, int y)
 	{
-		xLocation = _xLocation;
-		yLocation = _yLocation;
+		location.setX(x);
+		location.setY(y);
 	}
 
-	public void moveRelative(final int _xLocation, final int _yLocation)
+	public void moveRelative(int x, int y)
 	{
-		xLocation += _xLocation;
-		yLocation += _yLocation;
+		location.setX(location.getX() + x);
+		location.setY(location.getY() + y);
 	}
 
-	public void setHealth(final int _health)
+	public void setHealth(int health)
 	{
-		health = _health;
+		this.health = health;
 	}
 
-	public void setHealthRelative(final int _health)
+	public void setHealthRelative(int health)
 	{
-		health += _health;
+		this.health += health;
+	}
+
+	public void setSize(int size)
+	{
+		this.size = size;
+	}
+
+	public void shoot()
+	{
+		EffectsManager.addInvaderShot((int) (5 * scale), new Point2(location.getX() + (size / 2), location.getY() + size));
 	}
 }

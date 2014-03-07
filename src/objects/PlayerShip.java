@@ -2,9 +2,7 @@ package objects;
 
 import logic.Constants;
 import logic.EffectsManager;
-import logic.LogicManager;
 
-import org.lwjgl.util.Point;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -12,33 +10,37 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import util.Point2;
+
 public class PlayerShip implements Constants
 {
 
-	private int _cooldownRate = 1;
-	private int _heat = 0;
-	private final int _speed;
-	private int _gunDamage = 100;
-	private int _gunStreams = 1;
-	private final int _hullStrength;
-	private final int _shieldStrength;
-	private final int _maxShieldPower;
-	private float _currentEnergy;
-	private final float _rechargeRate;
-	private final Point _location;
-	private Image _image;
+	private float cooldownRate = 1.5f;
+	private float heat = 0;
+	private int size = (int) (64 * scale);
+	private int speed;
+	private int gunDamage = 100;
+	private int gunStreams = 1;
+	private int hullStrength;
+	private int maxHullStrength;
+	private int shieldStrength;
+	private int maxShieldStrength;
+	private float currentEnergy;
+	private float shieldRegenRate;
+	private Point2 location;
+	private Image image;
 
-	public PlayerShip(final int hullStrength, final int shieldStrength, final int maxPower, final float rechargeRate, final Point location, final int speed)
+	public PlayerShip(final int hullStrength, final int shieldStrength, final float rechargeRate, final Point2 location, final int speed)
 	{
-		_speed = speed;
-		_hullStrength = hullStrength;
-		_shieldStrength = shieldStrength;
-		_maxShieldPower = maxPower;
-		_currentEnergy = maxPower;
-		_rechargeRate = rechargeRate;
-		_location = location;
+		this.speed = speed;
+		this.hullStrength = hullStrength;
+		maxHullStrength = hullStrength;
+		this.shieldStrength = shieldStrength;
+		maxShieldStrength = shieldStrength;
+		shieldRegenRate = rechargeRate;
+		this.location = location;
 		try {
-			_image = new Image(resourcesPath + shipsPath + "\\greeninvader.png");
+			image = new Image(shipsPath + "\\greeninvader.png");
 		} catch (final SlickException e) {
 			System.out.print("Playership image load error");
 		}
@@ -46,101 +48,108 @@ public class PlayerShip implements Constants
 
 	public void draw(final Graphics g)
 	{
-		g.texture(new Rectangle(_location.getX(), _location.getY(), 64, 64), _image, true);
+		g.texture(new Rectangle(location.getX(), location.getY(), size, size), image, true);
 	}
 
-	public int getCooldown()
+	public float getCooldown()
 	{
-		return _cooldownRate;
+		return cooldownRate;
 	}
 
 	public int getGunDamage()
 	{
-		return _gunDamage;
+		return gunDamage;
 	}
 
 	public int getGunStreams()
 	{
-		return _gunStreams;
+		return gunStreams;
 	}
 
 	public int getHullStrength()
 	{
-		return _hullStrength;
+		return hullStrength;
+	}
+
+	public Point2 getLocation()
+	{
+		return location;
+	}
+
+	public int getMaxHullStrength()
+	{
+		return maxHullStrength;
 	}
 
 	public int getMaxPower()
 	{
-		return _maxShieldPower;
+		return maxShieldStrength;
 	}
 
 	public float getPower()
 	{
-		return _currentEnergy;
+		return currentEnergy;
 	}
 
 	public float getRechargeRate()
 	{
-		return _rechargeRate;
+		return shieldRegenRate;
 	}
 
 	public int getShieldStrength()
 	{
-		return _shieldStrength;
+		return shieldStrength;
 	}
 
 	public void moveLeft()
 	{
-		_location.setX(_location.getX() - _speed);
+		if (location.getX() > speed) location.setX(location.getX() - speed);
 	}
 
 	public void moveRight()
 	{
-		_location.setX(_location.getX() + _speed);
+		if (location.getX() < ((windowX - speed) - size)) location.setX(location.getX() + speed);
 	}
 
 	public void setCooldown(final int cooldown)
 	{
-		_cooldownRate = cooldown;
+		cooldownRate = cooldown;
 	}
 
 	public void setGunDamage(final int damage)
 	{
-		_gunDamage = damage;
+		gunDamage = damage;
 	}
 
 	public void setGunDamageRelative(final int damage)
 	{
-		_gunDamage += damage;
+		gunDamage += damage;
 	}
 
 	public void setGunStreams(final int numStreams)
 	{
-		_gunStreams = numStreams;
+		gunStreams = numStreams;
 	}
 
 	public void shoot()
 	{
-		if ((_currentEnergy > 0) && (_heat < 10)) {
-			_currentEnergy -= 1;
-			_heat += 50;
-			final Point shotLocation = new Point(_location);
-			shotLocation.setLocation(shotLocation.getX() + 28, shotLocation.getY() + 8);
-			EffectsManager.addPlayerShot(5, shotLocation);
+		if ((currentEnergy > 0) && (heat < 10)) {
+			currentEnergy -= 1;
+			heat += 50;
+			final Point2 shotLocation = new Point2(location);
+			shotLocation.setLocation(shotLocation.getX() + (int) (30 * scale), shotLocation.getY() + (int) (4 * scale));
+			EffectsManager.addPlayerShot((int) (5 * scale), 0, shotLocation);
 		}
 	}
 
 	public void step(final GameContainer gc)
 	{
-		if (!LogicManager.isGamePaused()) {
-			_currentEnergy += _rechargeRate;
-			if (_heat > _cooldownRate)
-				_heat -= _cooldownRate;
-			else _heat = 0;
-			final Input in = gc.getInput();
-			if (in.isKeyDown(Input.KEY_LEFT)) moveLeft();
-			if (in.isKeyDown(Input.KEY_RIGHT)) moveRight();
-			if (in.isKeyDown(Input.KEY_SPACE)) shoot();
-		}
+		currentEnergy += shieldRegenRate;
+		if (heat > cooldownRate) heat -= cooldownRate;
+		else heat = 0;
+		final Input in = gc.getInput();
+		if (in.isKeyDown(Input.KEY_LEFT)) moveLeft();
+		if (in.isKeyDown(Input.KEY_RIGHT)) moveRight();
+		if (in.isKeyDown(Input.KEY_SPACE)) shoot();
 	}
 }

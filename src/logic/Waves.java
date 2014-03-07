@@ -4,62 +4,39 @@ import java.util.ArrayList;
 
 import objects.Invader;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
+import util.Point2;
+
 public class Waves implements Constants
 {
 
-	static ArrayList<Invader> wave1 = null;
+	static double xScale = 1; // 1 means each invader is 32x32
+	static double yScale = 1;
+	static int currentWave = 1;
 
-	static ArrayList<Invader> wave2 = null;
-
-	public static ArrayList<Invader> getWave(final int wave)
+	public static ArrayList<Invader> getNextWave()
 	{
-		switch (wave)
-		{
-			case 1:
-			{
-				return wave1();
-			}
-			default:
-			{
-				return null;
-			}
-		}
+		currentWave++;
+		return makeWave(15, 5, 300 * (currentWave - 1));
 	}
 
-	public static ArrayList<Invader> wave1()
+	private static ArrayList<Invader> makeWave(int numCols, int numRows, int health)
 	{
-		wave1 = new ArrayList<Invader>();
-		final int rowSpacing = (int) ((windowY * .25) / 4);
-		final int colSpacing = (int) ((windowX * .5) / 10);
-		for (int col = 0; col < 10; col++) {
-			for (int row = 0; row < 5; row++) {
-				wave1.add(new Invader(col * colSpacing, (row * rowSpacing) + 50, 100));
-			}
+		Image texture = null;
+		try {
+			texture = new Image(shipsPath + "redinvader.png").getFlippedCopy(false, true);
+		} catch (SlickException e) {
 		}
-		return wave1;
+		int topBuffer = (int) ((windowY / 15) * scale);
+		int size = (int) ((windowX / 30) * scale);
+		int spacing = (int) ((size / 5) * scale);
+		ArrayList<Invader> wave = new ArrayList<Invader>(numCols * numRows);
+		for (int row = 0; row < numRows; row++)
+			for (int col = 0; col < numCols; col++)
+				wave.add(new Invader(new Point2((col * size) + (col * spacing), (row * size) + (row * spacing) + topBuffer), size, health, texture));
+
+		return wave;
 	}
-
-	public static ArrayList<Invader> wave2()
-	{
-		wave2 = new ArrayList<Invader>();
-		final int rowSpacing = (int) ((windowY * .25) / 4);
-		final int colSpacing = (int) ((windowX * .5) / 10);
-		for (int col = 0; col < 10; col++) {
-			for (int row = 0; row < 5; row++) {
-				wave2.add(new Invader(col * colSpacing, (row * rowSpacing) + 50, 150));
-			}
-		}
-		return wave2;
-	}
-
-	ArrayList<Invader> wave3 = null;
-	ArrayList<Invader> wave4 = null;
-	ArrayList<Invader> wave5 = null;
-	ArrayList<Invader> wave6 = null;
-	ArrayList<Invader> wave7 = null;
-	ArrayList<Invader> wave8 = null;
-
-	ArrayList<Invader> wave9 = null;
-
-	ArrayList<Invader> wave10 = null;
 }

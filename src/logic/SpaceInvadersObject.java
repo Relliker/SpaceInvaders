@@ -1,120 +1,118 @@
 package logic;
 
-import org.lwjgl.util.Point;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import util.Point2;
+
 public class SpaceInvadersObject implements Constants
 {
 
-	private String _type;
-	private Image _image;
-	private int _moveDirection;
-	private int _speed;
-	private final Point _location;
+	private String type;
+	private Image image;
+	private int moveDirection;
+	private int speed;
+	private Point2 location;
 
 	public SpaceInvadersObject(final String type, final int moveDirection, final int speed, final int x, final int y) throws SlickException
 	{
-		_type = type;
-		_image = new Image(resourcesPath + effectsPath + type + ".jpg");
-		_image = _image.getScaledCopy(4, 16);
-		_image.bind();
-		_moveDirection = moveDirection;
-		_speed = speed;
-		_location = new Point(x, y);
+		this.type = type;
+		image = new Image(effectsPath + type + ".jpg");
+		this.moveDirection = moveDirection;
+		this.speed = speed;
+		location = new Point2(x, y);
 	}
 
-	public SpaceInvadersObject(final String type, final int moveDirection, final int speed, final Point point) throws SlickException
+	public SpaceInvadersObject(final String type, final int moveDirection, final int speed, final Point2 point) throws SlickException
 	{
-		_type = type;
-		_image = new Image(resourcesPath + effectsPath + type + ".jpg");
-		_image = _image.getScaledCopy(4, 16);
-		_image.bind();
-		_moveDirection = moveDirection;
-		_speed = speed;
-		_location = point;
+		this.type = type;
+		image = new Image(effectsPath + type + ".jpg");
+		this.moveDirection = moveDirection;
+		this.speed = speed;
+		location = point;
 	}
 
 	public void draw(final Graphics g)
 	{
-		g.texture(new Rectangle(_location.getX() + 2, _location.getY() - 14, 4, 16), _image);
+		g.texture(new Rectangle(location.getX(), location.getY(), (int) (4 * scale), (int) (16 * scale)), image, true);
 	}
 
 	public int getDirection()
 	{
-		return _moveDirection;
+		return moveDirection;
 	}
 
 	public Image getImage()
 	{
-		return _image;
+		return image;
+	}
+
+	public Point2 getLocation()
+	{
+		return location;
 	}
 
 	public int getSpeed()
 	{
-		return _speed;
+		return speed;
 	}
 
 	public String getType()
 	{
-		return _type;
+		return type;
 	}
 
 	public void moveRelative(final int x, final int y)
 	{
-		_location.translate(x, y);
-	}
 
-	public void moveRelative(final Point p)
-	{
-		_location.translate(p);
 	}
 
 	public void setDirection(final int direction)
 	{
-		_moveDirection = direction;
+		moveDirection = direction;
 	}
 
 	public void setDirectionRelative(final int direction)
 	{
-		_moveDirection += direction;
+		moveDirection += direction;
 	}
 
 	public void setImage(final Image i)
 	{
-		_image = i;
+		image = i;
 	}
 
 	public void setLocation(final int x, final int y)
 	{
-		_location.setLocation(x, y);
+		location.setLocation(x, y);
 	}
 
-	public void setLocation(final Point p)
+	public void setLocation(final Point2 location)
 	{
-		_location.setLocation(p);
+		this.location = location;
+
 	}
 
 	public void setSpeed(final int speed)
 	{
-		_speed = speed;
+		this.speed = speed;
 	}
 
 	public void setSpeedRelative(final int speed)
 	{
-		_speed += speed;
+		this.speed += speed;
 	}
 
 	public void setType(final String type)
 	{
-		_type = type;
+		this.type = type;
 	}
 
 	public void step()
 	{
-		final double angle = Math.toRadians(_moveDirection + 90);
-		_location.translate((int) (_speed * Math.cos(angle)), (int) (_speed * Math.sin(angle)));
+		final double angle = Math.toRadians(moveDirection + 90);
+		location.translate((int) (speed * Math.cos(angle)), (int) (speed * Math.sin(angle)));
 	}
 }
