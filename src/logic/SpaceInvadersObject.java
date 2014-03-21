@@ -3,6 +3,7 @@ package logic;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
 import util.Point2;
@@ -15,22 +16,15 @@ public class SpaceInvadersObject implements Constants
 	private int moveDirection;
 	private int speed;
 	private Point2 location;
+	private Polygon collisionMask;
 
-	public SpaceInvadersObject(final String type, final int moveDirection, final int speed, final int x, final int y) throws SlickException
+	public SpaceInvadersObject(final String type, Polygon collisionMask, final int moveDirection, final int speed, final Point2 point) throws SlickException
 	{
 		this.type = type;
-		image = new Image(effectsPath + type + ".jpg");
+		image = new Image(effectsPath + type + ".png");
 		this.moveDirection = moveDirection;
 		this.speed = speed;
-		location = new Point2(x, y);
-	}
-
-	public SpaceInvadersObject(final String type, final int moveDirection, final int speed, final Point2 point) throws SlickException
-	{
-		this.type = type;
-		image = new Image(effectsPath + type + ".jpg");
-		this.moveDirection = moveDirection;
-		this.speed = speed;
+		this.collisionMask = collisionMask;
 		location = point;
 	}
 
@@ -42,6 +36,11 @@ public class SpaceInvadersObject implements Constants
 	public int getDirection()
 	{
 		return moveDirection;
+	}
+
+	public Polygon getCollisionMask()
+	{
+		return collisionMask;
 	}
 
 	public Image getImage()

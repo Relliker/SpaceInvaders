@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import objects.Invader;
 import objects.PlayerShip;
+
+import org.newdawn.slick.GameContainer;
+
 import util.Point2;
 
 public class ShipManager implements Constants
@@ -47,14 +50,16 @@ public class ShipManager implements Constants
 		currentWave = Waves.getNextWave();
 	}
 
-	public static void step()
+	public static void step(GameContainer gc)
 	{
 		if (currentWave == null) nextWave();
 		stepInvaders();
+		player.step(gc);
 	}
 
 	private static void stepInvaders()
 	{
+		// TEMPORARY
 		for (final Invader current : currentWave)
 			if ((current.getX() + (windowX / 30)) > windowX) {
 				movingRight = false;

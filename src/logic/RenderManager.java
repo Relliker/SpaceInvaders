@@ -4,7 +4,6 @@ import objects.Invader;
 import objects.PlayerShip;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -69,7 +68,7 @@ public class RenderManager implements Constants, CollisionMasks
 		g.setClip(0, 0, windowX, windowY);
 		drawBackgrounds(g);
 		drawText(g);
-		/drawBars(g);
+		drawBars(g);
 		drawAIShips(g);
 		EffectsManager.draw(g);
 		drawPlayerShips(g);
@@ -81,8 +80,4 @@ public class RenderManager implements Constants, CollisionMasks
 		g.drawString("PAUSED", windowX / 2, windowY / 2);
 	}
 
-	public static void update(final GameContainer gc)
-	{
-		ShipManager.getPlayerShip().step(gc);
-	}
 }

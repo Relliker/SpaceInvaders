@@ -7,4 +7,6 @@ public interface CollisionMasks
 
 	public Polygon playerShipCollisionMask = new Polygon(new float[] {});
 	public Polygon redInvaderCollisionMask = new Polygon(new float[] { 61, 337, 330, 337, 390, 160, 243, 0, 147, 0, 0, 160, 61, 337 });
+	public Polygon invaderShotCollisionMask = new Polygon(new float[] {});
+	public Polygon playerShotCollisionMask = new Polygon(new float[] {});
 }

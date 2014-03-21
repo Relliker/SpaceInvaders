@@ -57,18 +57,18 @@ public class Main extends BasicGame implements Constants
 	}
 
 	@Override
-	public void init(final GameContainer c) throws SlickException
+	public void init(final GameContainer gc) throws SlickException
 	{
 		System.out.println("\nInitialize\n");
 
-		final Graphics graphics = c.getGraphics();
+		final Graphics graphics = gc.getGraphics();
 		graphics.setAntiAlias(antiAliasing);
 		graphics.setWorldClip(0, 0, windowX, windowY);
 		graphics.setDrawMode(Graphics.MODE_NORMAL);
 		graphics.setBackground(org.newdawn.slick.Color.black);
 		graphics.clear();
 
-		ShipManager.step();
+		ShipManager.step(gc);
 		RenderManager.loadResources(graphics);
 	}
 

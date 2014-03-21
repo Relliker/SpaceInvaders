@@ -18,9 +18,8 @@ public class LogicManager
 		final Input in = gc.getInput();
 		if (in.isKeyPressed(Input.KEY_P)) isPaused = !isPaused;
 		if (!isPaused) {
-			ShipManager.step();
 			EffectsManager.step();
-			RenderManager.update(gc);
+			ShipManager.step(gc);
 		} else RenderManager.paused(gc.getGraphics());
 
 	}
