@@ -6,18 +6,21 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import util.Point2;
-
+/**
+ * objects - Game objects
+ */
 public class EffectsManager implements Constants, CollisionMasks
 {
 
 	private final static ArrayList<SpaceInvadersObject> objects = new ArrayList<SpaceInvadersObject>();
-
+	/**
+	 * 
+	 */
 	public static void addInvaderShot(final int speed, final Point2 point)
 	{
 		try {
 			objects.add(new SpaceInvadersObject("invadershot", invaderShotCollisionMask, 0, speed, new Point2(point)));
 		} catch (final SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
