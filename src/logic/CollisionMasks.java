@@ -1,7 +1,9 @@
 package logic;
 
 import org.newdawn.slick.geom.Polygon;
-
+/**
+ * Templates for Collisions. Each variable will be used with their corresponding objects
+ * /
 public interface CollisionMasks
 {
 
