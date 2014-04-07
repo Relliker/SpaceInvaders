@@ -2,7 +2,15 @@ package logic;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-
+/**
+ * Holds all the constants
+ * 
+ * debugMode - toggles extra information not needed for gameplay.
+ * multisample - antialiasing
+ * grabMouse - whether or not mouse is on screen. if true, mouse is hidden.
+ * frametime - in milliseconds
+ * scale - makes sure everything is the same size no matter what the screen resolution is.
+ */ 
 public interface Constants
 {
 
