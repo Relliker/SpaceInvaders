@@ -11,6 +11,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 import util.Point2;
+/**
+ * playership class
+ * heat - cooldown limit
+ * 
+ **/
 
 public class PlayerShip implements Constants
 {
@@ -45,12 +50,18 @@ public class PlayerShip implements Constants
 			System.out.print("Playership image load error");
 		}
 	}
-
+	/**
+ 	* draws the new player ship
+ 	* g - graphics object
+ 	**/ 
 	public void draw(final Graphics g)
 	{
 		g.texture(new Rectangle(location.getX(), location.getY(), size, size), image, true);
 	}
-
+	/**
+	 *get cooldown- returns the cooldown 
+	 * rate 
+	 **/
 	public float getCooldown()
 	{
 		return cooldownRate;
