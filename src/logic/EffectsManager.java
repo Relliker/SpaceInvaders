@@ -29,8 +29,8 @@ public class EffectsManager implements Constants, CollisionMasks
 	/**
 	 * adds a player bullet object
 	 * @param speed - speed shot will travel at 
-	 * @param angle - angle shot will be going in
-	 * @param 
+	 * @param angle - angle shot will be going in. This will be used to create different shot types.
+	 * @param location - position to create player shot
 	 */
 	public static void addPlayerShot(final int speed, final int angle, final Point2 location)
 	{
@@ -50,6 +50,7 @@ public class EffectsManager implements Constants, CollisionMasks
 	}
 	/**
 	 * returns if a point is a valid location to be drawn on the screen
+	 * @return - if point is on screen or not
 	 */
 	private static boolean isOnScreen(Point2 location)
 	{
