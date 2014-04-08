@@ -14,7 +14,7 @@ public class EffectsManager implements Constants, CollisionMasks
 
 	private final static ArrayList<SpaceInvadersObject> objects = new ArrayList<SpaceInvadersObject>();
 	/**
-	 * 
+	 * adds an invader bullet object
 	 */
 	public static void addInvaderShot(final int speed, final Point2 point)
 	{
@@ -24,7 +24,9 @@ public class EffectsManager implements Constants, CollisionMasks
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * adds a player bullet object
+	 */
 	public static void addPlayerShot(final int speed, final int angle, final Point2 location)
 	{
 		try {
@@ -33,13 +35,17 @@ public class EffectsManager implements Constants, CollisionMasks
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * draws all objects in objects
+	 */
 	public static void draw(final Graphics g)
 	{
 		for (final SpaceInvadersObject e : objects)
 			e.draw(g);
 	}
-
+	/**
+	 * returns if a point is a valid location to be drawn on the screen
+	 */
 	private static boolean isOnScreen(Point2 location)
 	{
 		int buffer = 100;
@@ -47,11 +53,14 @@ public class EffectsManager implements Constants, CollisionMasks
 		if ((location.getY() < -buffer) || (location.getY() > (windowY + buffer))) return false;
 		return true;
 	}
-
+	/**
+	 * removes any object that goes off the screen
+	 */ 
 	public static void step()
 	{
 		for (int current = 0; current < objects.size(); current++)
-			if (!isOnScreen(objects.get(current).getLocation())) objects.remove(current);
+			if (!isOnScreen(objects.get(current).getLocation())) {objects.remove(current);current--;}
 			else objects.get(current).step();
+			
 	}
 }
