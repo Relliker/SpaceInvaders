@@ -15,6 +15,8 @@ public class EffectsManager implements Constants, CollisionMasks
 	private final static ArrayList<SpaceInvadersObject> objects = new ArrayList<SpaceInvadersObject>();
 	/**
 	 * adds an invader bullet object
+	 * @param speed - speed to give invade shot
+	 * @param point - point to create object at
 	 */
 	public static void addInvaderShot(final int speed, final Point2 point)
 	{
@@ -26,6 +28,9 @@ public class EffectsManager implements Constants, CollisionMasks
 	}
 	/**
 	 * adds a player bullet object
+	 * @param speed - speed shot will travel at 
+	 * @param angle - angle shot will be going in
+	 * @param 
 	 */
 	public static void addPlayerShot(final int speed, final int angle, final Point2 location)
 	{
