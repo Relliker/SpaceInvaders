@@ -52,96 +52,146 @@ public class PlayerShip implements Constants
 	}
 	/**
  	* draws the new player ship
- 	* g - graphics object
+ 	* @param g - graphics object
  	**/ 
 	public void draw(final Graphics g)
 	{
 		g.texture(new Rectangle(location.getX(), location.getY(), size, size), image, true);
 	}
 	/**
-	 *get cooldown- returns the cooldown 
-	 * rate 
+	 * @return get cooldown- returns the cooldown 
+	 
 	 **/
 	public float getCooldown()
 	{
 		return cooldownRate;
 	}
+	/**
+	 *@return get gun Damage- returns the gun damgae 
+	 
+	 **/
 
 	public int getGunDamage()
 	{
 		return gunDamage;
 	}
+	/**
+	 *@return get Gun streams- return gun stream 
+	 **/
 
 	public int getGunStreams()
 	{
 		return gunStreams;
 	}
+	/**
+	 *get hull strength- returns the hull strength 
+	 
+	 **/
 
 	public int getHullStrength()
 	{
 		return hullStrength;
 	}
+	/**
+	 *@return get Location- returns the point2 location object 
+	 
+	 **/
 
 	public Point2 getLocation()
 	{
 		return location;
 	}
+	/**
+	 *@return get max hull strength- returns the max hull strength
+	 
+	 **/
 
 	public int getMaxHullStrength()
 	{
 		return maxHullStrength;
 	}
-
+	/**
+	 *@return max power of player ship 
+	 **/
 	public int getMaxPower()
 	{
 		return maxShieldStrength;
 	}
-
+	/**
+	 *@return current power of ship 
+	 **/
 	public float getPower()
 	{
 		return currentEnergy;
 	}
+	/**
+	 * @return recharge rate of shields
+	 **/
 
 	public float getRechargeRate()
 	{
 		return shieldRegenRate;
 	}
+	/**
+	 * @return current shield strength
+	 **/
 
 	public int getShieldStrength()
 	{
 		return shieldStrength;
 	}
+	/**
+	 * moves player shift left
+	 **/
 
 	public void moveLeft()
 	{
 		if (location.getX() > speed) location.setX(location.getX() - speed);
 	}
-
+	/**
+	 * moves player ship right
+	 **/
 	public void moveRight()
 	{
 		if (location.getX() < ((windowX - speed) - size)) location.setX(location.getX() + speed);
 	}
-
+	/**
+	 * sets coolodown of player ship
+	 * @param cooldown - value of cooldown
+	 **/
 	public void setCooldown(final int cooldown)
 	{
 		cooldownRate = cooldown;
 	}
+	/**
+	 * sets the gun damage of player ship
+	 * @param damage - value of damage of shot
+	 **/
 
 	public void setGunDamage(final int damage)
 	{
 		gunDamage = damage;
 	}
-
+	/**
+	 * adds gun damage value
+	 * @param damage - value of damage added to gunDamage
+	 **/
 	public void setGunDamageRelative(final int damage)
 	{
 		gunDamage += damage;
 	}
+	/**
+	 * sets the number of gunstreams 
+	 * @param numStreams - number of gunstreams
+	 **/
 
 	public void setGunStreams(final int numStreams)
 	{
 		gunStreams = numStreams;
 	}
-
+	/**
+	 * shoots a bullet from the playership
+	 **/
 	public void shoot()
 	{
 		if ((currentEnergy > 0) && (heat < 10)) {
@@ -152,7 +202,10 @@ public class PlayerShip implements Constants
 			EffectsManager.addPlayerShot((int) (5 * scale), 0, shotLocation);
 		}
 	}
-
+	/**
+	 * step method 
+	 * @param gc - Gamecontainer object
+	 **/
 	public void step(final GameContainer gc)
 	{
 		currentEnergy += shieldRegenRate;
