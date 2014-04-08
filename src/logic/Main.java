@@ -8,10 +8,15 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-
+/**
+* Main class
+* 
+**/
 public class Main extends BasicGame implements Constants
 {
-
+	/**
+	 *driver starting the game
+	 **/ 
 	public static void main(final String[] args)
 	{
 		try {
@@ -25,7 +30,9 @@ public class Main extends BasicGame implements Constants
 			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Exception @ creating container", ex);
 		}
 	}
-
+	/**
+	 * @param game - AppGameContainer object
+	 **/
 	private static void setSettings(final AppGameContainer game)
 	{
 
@@ -57,6 +64,11 @@ public class Main extends BasicGame implements Constants
 	}
 
 	@Override
+	
+	/**
+	 * inializes the graphics
+	 * @param gc - GameContainer object
+	 **/
 	public void init(final GameContainer gc) throws SlickException
 	{
 		System.out.println("\nInitialize\n");
