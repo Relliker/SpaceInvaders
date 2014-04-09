@@ -9,19 +9,30 @@ import org.newdawn.slick.SlickException;
 
 import util.Point2;
 
+/**
+ * manages Invader waves.
+ */
 public class Waves implements Constants
 {
 
 	static double xScale = 1; // 1 means each invader is 32x32
 	static double yScale = 1;
 	static int currentWave = 1;
-
+	
+	/**
+	 * inc waves
+	 * @return - new wave
+	 */
 	public static ArrayList<Invader> getNextWave()
 	{
 		currentWave++;
 		return makeWave(15, 5, 300 * (currentWave - 1));
 	}
 
+	/**
+	 * makes a wave
+	 * @return - new wave
+	 */
 	private static ArrayList<Invader> makeWave(int numCols, int numRows, int health)
 	{
 		Image texture = null;
