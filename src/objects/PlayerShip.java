@@ -34,7 +34,9 @@ public class PlayerShip implements Constants
 	private float shieldRegenRate;
 	private Point2 location;
 	private Image image;
-
+	/**
+	 * Constructor
+	 */ 
 	public PlayerShip(final int hullStrength, final int shieldStrength, final float rechargeRate, final Point2 location, final int speed)
 	{
 		this.speed = speed;
