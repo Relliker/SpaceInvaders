@@ -18,7 +18,20 @@ public class Waves implements Constants
 	static double xScale = 1; // 1 means each invader is 32x32
 	static double yScale = 1;
 	static int currentWave = 1;
+	static ArrayList<Point2> wave1Diamond;
+	static ArrayList<Point2> wave2Circle;
+	static ArrayList<Point2> wave3Star;
+	static ArrayList<Point2> wave4Random;
+	static ArrayList<Point2> wave5Square;
+	static ArrayList<ArrayList<Point2>> waves;
 	
+	public Waves(){
+		for(int i=0; i< 10; i++) for(int j=0; j< 10; j++)wave5Square.add(new Point2(i,j); //square
+
+		for(int i=0; i<10; i+=9) for(int j=0;j<10;j++)wave2Circle.add(new Point2(i,j);
+		
+		waves={wave1Diamond, wave2Circle, wave3Star, wave4Random, wave5Square};
+	}
 	/**
 	 * inc waves
 	 * @return - new wave
@@ -50,4 +63,5 @@ public class Waves implements Constants
 
 		return wave;
 	}
+	
 }
