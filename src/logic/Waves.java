@@ -28,7 +28,23 @@ public class Waves implements Constants
 	public Waves(){
 		for(int i=0; i< 10; i++) for(int j=0; j< 10; j++)wave5Square.add(new Point2(i,j); //square
 
-		for(int i=0; i<10; i+=9) for(int j=0;j<10;j++)wave2Circle.add(new Point2(i,j);
+		for(int i=0; i<10; i+=9) for(int j=0;j<10;j++)wave2Circle.add(new Point2(i,j); //sides of circle
+		
+		for(int i=1; i<9; i++){
+			for(int j=0; j<9; j+=9){
+				wave2Circle.add(new Point2(i,j)); //top and bottom of circle
+				wave4Random.add(new Point2(i,j)); //top and bottom of shape
+			}
+		} 
+		
+		for(int i=0; i<10; i+=9){
+			wave4Random.add(new Point2(i,i)); 
+			wave4Random.add(new Point2(i, 10-1)); 
+			wave3Star.add(new Point2(i,i)); 
+			wave3Star.add(new Point2(i, 10-1)); 
+		}
+		
+		
 		
 		waves={wave1Diamond, wave2Circle, wave3Star, wave4Random, wave5Square};
 	}
