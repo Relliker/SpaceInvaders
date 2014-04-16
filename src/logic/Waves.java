@@ -44,7 +44,16 @@ public class Waves implements Constants
 			wave3Star.add(new Point2(i, 10-1)); 
 		}
 		
+		for(int i=0;i<10;i++){ wave3Star.add(new Point2(i,4)); wave3Star.add(new Point2(4,i));
 		
+		for(int i=0;i<10;i++){
+			if( i = 0){
+			   wave1Diamond.add(new Point2(4, 0));
+			   continue;
+			}
+			wave1Diamond.add(new Point2(4-(i%5) , i); 
+			wave1Diamond.add(new Point2(4+(i%5), i);
+		}
 		
 		waves={wave1Diamond, wave2Circle, wave3Star, wave4Random, wave5Square};
 	}
